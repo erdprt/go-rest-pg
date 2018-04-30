@@ -5,10 +5,11 @@ services:
     container_name: rest-pg-db
     #restart: always
     volumes:
-      - ./db/pgdata:/pgdata
+      - postgresql-volume:$PGDATA
     #- ./db/postgresql.conf:$CUSTOM_CONFIG/postgresql.conf
     #command: 
     #  - postgres -c config_file=$CUSTOM_CONFIG/postgresql.conf
+    #  - postgres -c logging_collector=on -c log_directory=/logs
     ports:
       - "5432:5432"
     environment:
@@ -18,4 +19,6 @@ services:
       - PGDATA=$PGDATA
       #- PGAUTOCONF=$CUSTOM_CONFIG/postgresql.conf
       
-
+volumes:
+  postgresql-volume:
+    external: true
