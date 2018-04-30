@@ -3,13 +3,17 @@ services:
   database:
     build: ./db
     container_name: rest-pg-db
+    #restart: always
     volumes:
-      - ./db/pgdata:/pgdata
+      - postgresql-volume:$PGDATA
     ports:
       - "5432:5432"
     environment:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=admin
       - POSTGRES_DB=rest-pg
-      - PGDATA=$PGDATA      
-
+      - PGDATA=$PGDATA
+      
+volumes:
+  postgresql-volume:
+    external: true
